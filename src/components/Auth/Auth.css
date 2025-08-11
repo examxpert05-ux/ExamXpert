@@ -1,0 +1,12 @@
+form {
+    display: grid;
+    gap: 8px;
+    max-width: 300px;
+}
+
+input,
+textarea {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

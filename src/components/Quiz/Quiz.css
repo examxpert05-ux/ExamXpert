@@ -1,0 +1,19 @@
+.option {
+    display: block;
+    padding: 8px;
+    border-radius: 8px;
+    background: #f8fafc;
+    cursor: pointer;
+}
+
+.option input {
+    margin-right: 8px;
+}
+
+.correct {
+    background: #e6ffef !important;
+}
+
+.wrong {
+    background: #fee2e2 !important;
+}
