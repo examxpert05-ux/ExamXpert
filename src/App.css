@@ -1,3 +1,4 @@
+/* Existing styles (DO NOT MODIFY) */
 .container {
   max-width: 1000px;
   margin: 0 auto;
@@ -36,4 +37,42 @@
   position: absolute;
   bottom: 20px;
   left: 20px;
+}
+
+/* Blog-specific styles */
+.blog-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.blog-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.blog-card:hover {
+  transform: translateY(-5px);
+  transition: transform 0.3s ease;
+}
+
+.blog-btn {
+  background: #9333ea;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s;
+}
+
+.blog-btn:hover {
+  background: #7e22ce;
+}
+
+.blog-prose p {
+  line-height: 1.6;
 }

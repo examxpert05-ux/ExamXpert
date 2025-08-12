@@ -64,7 +64,8 @@ export default function Quiz() {
         rlist.push(result);
         localStorage.setItem('results', JSON.stringify(rlist));
         localStorage.setItem('quizResponses', JSON.stringify({ questions, answers, examId: id }));
-        navigate('/result');
+        const title = exams.find(e => e.id === id)?.title; // Get the dynamic title
+        navigate('/result', { state: { result, title } }); // Navigate to result with title
     };
 
     return (
@@ -73,7 +74,47 @@ export default function Quiz() {
                 <h3>Live Test — {exams.find(e => e.id === id)?.title}</h3>
                 <Timer timeLeft={timeLeft} setTimeLeft={setTimeLeft} submitted={submitted} onTimeout={handleSubmit} />
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 12, marginTop: 12 }}>
+            {/* Navigation and Full screen aligned extreme left/right */}
+            <div className="card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <h4 style={{ margin: 0 }}>Navigation</h4>
+                <label style={{ margin: 0 }}>
+                    <input type="checkbox" /> Full screen (demo)
+                </label>
+            </div>
+            {/* Moved Navigation to Top */}
+            <div
+                style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: 8,
+                    margin: '12px 0',
+                    overflowX: 'auto',
+                    maxWidth: '100%',
+                }}
+            >
+                {questions.map((q, i) => {
+                    const isAnswered = answers[i] !== undefined && answers[i] !== null && answers[i] !== '';
+
+                    return (
+                        <button
+                            key={q.id || i}
+                            style={{
+                                padding: 8,
+                                borderRadius: 8,
+                                background: isAnswered ? '#0b72ff' : '#f1f5f9',
+                                color: isAnswered ? '#fff' : '#111',
+                                minWidth: '40px',
+                                textAlign: 'center',
+                            }}
+                        >
+                            {i + 1}
+                        </button>
+                    );
+                })}
+            </div>
+
+
+            <div style={{ marginTop: 12 }}>
                 <div className="card">
                     {questions.map((q, index) => (
                         <Question
@@ -91,30 +132,8 @@ export default function Quiz() {
                         </button>
                     )}
                 </div>
-                <div className="card">
-                    <h4>Navigation</h4>
-                    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                        {questions.map((q, i) => (
-                            <button
-                                key={q.id}
-                                style={{
-                                    padding: 8,
-                                    borderRadius: 8,
-                                    background: answers[i] ? '#0b72ff' : '#f1f5f9',
-                                    color: answers[i] ? '#fff' : '#111',
-                                }}
-                            >
-                                {i + 1}
-                            </button>
-                        ))}
-                    </div>
-                    <div style={{ marginTop: 12 }}>
-                        <label>
-                            <input type="checkbox" /> Full screen (demo)
-                        </label>
-                    </div>
-                </div>
             </div>
+
         </section>
     );
 }
