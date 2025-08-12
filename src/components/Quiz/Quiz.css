@@ -11,9 +11,20 @@
 }
 
 .correct {
+    color: green;
     background: #e6ffef !important;
 }
 
 .wrong {
+    color: red;
     background: #fee2e2 !important;
+}
+
+.correct-dark {
+    color: #042c04;
+    background: #e6ffef !important;
+}
+
+.submit-button {
+    margin-top: 75px;
 }

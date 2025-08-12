@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
 import Auth from './components/Auth/Auth';
 import Dashboard from './components/Dashboard/Dashboard';
 import Quiz from './components/Quiz/Quiz';
@@ -7,26 +7,26 @@ import Home from './components/Home';
 import Contact from './components/Contact';
 import Blog from './components/Blog';
 import BlogPost from './components/BlogPost';
-import Admin from './components/Admin';
-import Result from './components/Results';
+// import Admin from './components/Admin';
+import Result from './components/Results'; // Fixed typo (Results to Result)
+import Review from './components/Review';
 import './App.css';
 
-// Pseudo-authentication implementation
 const pseudoAuth = {
   currentUser: null,
   async signup({ name, email, password, phone }) {
     const user = { uid: 'u' + Date.now(), name, email, phone, verified: false };
     this.currentUser = user;
-    return true; // Simulate successful signup
+    return true;
   },
   async signin({ email }) {
     const user = { uid: 'u' + Date.now(), email, verified: false };
     this.currentUser = user;
-    return true; // Simulate successful signin
+    return true;
   },
   signout() {
     this.currentUser = null;
-    return true; // Simulate successful signout
+    return true;
   }
 };
 
@@ -98,7 +98,8 @@ export default function App() {
           <Route path="/dashboard" element={<Dashboard user={user} />} />
           <Route path="/test/:id" element={<Quiz />} />
           <Route path="/result" element={<Result />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/review" element={<Review />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
     </Router>

@@ -2,9 +2,9 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Question from './Question';
 import Timer from './Timer';
-import upscData from '../../data/upscData';
-import sscData from '../../data/sscData';
 import bankData from '../../data/bankData';
+import sscData from '../../data/sscData';
+import upscData from '../../data/upscData';
 import './Quiz.css';
 
 export default function Quiz() {
@@ -63,6 +63,7 @@ export default function Quiz() {
         const rlist = JSON.parse(localStorage.getItem('results') || '[]');
         rlist.push(result);
         localStorage.setItem('results', JSON.stringify(rlist));
+        localStorage.setItem('quizResponses', JSON.stringify({ questions, answers, examId: id }));
         navigate('/result');
     };
 
@@ -85,7 +86,7 @@ export default function Quiz() {
                         />
                     ))}
                     {!submitted && (
-                        <button className="btn btn-red" onClick={handleSubmit}>
+                        <button className="btn btn-red submit-button" onClick={handleSubmit}>
                             Submit Exam
                         </button>
                     )}

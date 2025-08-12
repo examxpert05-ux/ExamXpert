@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import StatsChart from './Dashboard/StatsChart';
 import '../App.css';
 
@@ -23,6 +24,9 @@ export default function Result() {
                         <p>
                             Time taken: {Math.floor(last.timeTaken / 60)}m {last.timeTaken % 60}s
                         </p>
+                        <Link to="/review" state={{ result: last }}>
+                            <button className="btn btn-purple">Review Your Response</button>
+                        </Link>
                     </div>
                     <div className="card">
                         <h3>Performance Graph (demo)</h3>
