@@ -14,7 +14,7 @@ export default function Result() {
     const last = results.length > 0 ? results[results.length - 1] : null;
 
     return (
-        <section style={{ padding: 40 }}>
+        <section style={{ padding: 40, position: 'relative' }}>
             <h2>Result</h2>
             {!last && <p>No recent result found (take a demo test first).</p>}
             {last && (
@@ -24,15 +24,17 @@ export default function Result() {
                         <p>
                             Time taken: {Math.floor(last.timeTaken / 60)}m {last.timeTaken % 60}s
                         </p>
-                        <Link to="/review" state={{ result: last }}>
-                            <button className="btn btn-purple">Review Your Response</button>
-                        </Link>
                     </div>
                     <div className="card">
                         <h3>Performance Graph (demo)</h3>
                         <StatsChart />
                     </div>
                 </div>
+            )}
+            {last && (
+                <Link to="/review" state={{ result: last }}>
+                    <button className="btn btn-purple review-button">Review Your Response</button>
+                </Link>
             )}
         </section>
     );

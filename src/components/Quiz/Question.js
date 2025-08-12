@@ -1,31 +1,30 @@
 import React from 'react';
-import '../../App.css';
+import './Quiz.css';
 
 export default function Question({ question, index, selectedOption, onOptionChange, submitted }) {
+    const optionLabels = ['A', 'B', 'C', 'D'];
+
     return (
-        <div className="question-card">
+        <div className="question" style={{ marginBottom: 12 }}>
             <p>
                 <strong>Q{index + 1}:</strong> {question.question}
             </p>
-            {question.options.map((option, i) => {
-                const isSelected = selectedOption === option.optionId;
-                const isCorrect = question.answerId === option.optionId;
-                let labelClass = 'option';
-                if (submitted) {
-                    if (isCorrect) labelClass += ' correct';
-                    else if (isSelected && !isCorrect) labelClass += ' wrong';
-                }
+            {question.options.map((option, optIndex) => {
+                const isCorrect = submitted && option.optionId === question.answerId;
+                const isUserAnswer = option.optionId === selectedOption;
+                const className = `option ${submitted ? (isCorrect ? 'correct' : (isUserAnswer ? 'wrong' : '')) : ''}`;
+
                 return (
-                    <label key={i} className={labelClass}>
+                    <label key={option.optionId} className={className}>
                         <input
                             type="radio"
                             name={`q${index}`}
                             value={option.optionId}
-                            checked={isSelected}
+                            checked={selectedOption === option.optionId}
                             onChange={() => onOptionChange(index, option.optionId)}
                             disabled={submitted}
                         />
-                        {option.text}
+                        <span className="option-label">{optionLabels[optIndex]}.</span> {option.text}
                     </label>
                 );
             })}

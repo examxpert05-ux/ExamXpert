@@ -21,10 +21,35 @@
 }
 
 .correct-dark {
-    color: #042c04;
+    color: #006400;
     background: #e6ffef !important;
+}
+
+.dimmed {
+    opacity: 0.5;
 }
 
 .submit-button {
     margin-top: 75px;
+}
+
+.checkmark {
+    font-weight: bold;
+    margin-right: 4px;
+}
+
+.cross {
+    font-weight: bold;
+    margin-right: 4px;
+    color: red;
+}
+
+.option-label {
+    margin-right: 8px;
+}
+
+.marker-space {
+    display: inline-block;
+    width: 16px;
+    text-align: center;
 }

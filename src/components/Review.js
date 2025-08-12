@@ -24,6 +24,8 @@ export default function Review() {
         );
     }
 
+    const optionLabels = ['A', 'B', 'C', 'D'];
+
     return (
         <section style={{ padding: 40 }}>
             <h2>Review Your Responses</h2>
@@ -37,10 +39,10 @@ export default function Review() {
                             <p>
                                 <strong>Q{index + 1}:</strong> {q.question}
                             </p>
-                            {q.options.map((option) => {
+                            {q.options.map((option, optIndex) => {
                                 const isCorrect = option.optionId === correctAnswerId;
                                 const isUserAnswer = option.optionId === userAnswerId;
-                                const className = `option ${isCorrect ? 'correct-dark' : (isUserAnswer ? 'wrong' : '')}`;
+                                const className = `option ${isCorrect ? 'correct-dark' : (isUserAnswer ? 'wrong dimmed' : 'dimmed')}`;
 
                                 return (
                                     <p
@@ -48,7 +50,10 @@ export default function Review() {
                                         className={className}
                                         style={isCorrect ? { fontWeight: 'bold' } : {}}
                                     >
-                                        {option.text}
+                                        <span className="marker-space">
+                                            {isUserAnswer && isCorrect ? '✔' : isUserAnswer ? '✘' : ' '}
+                                        </span>
+                                        <span className="option-label">{optionLabels[optIndex]}.</span> {option.text}
                                     </p>
                                 );
                             })}
