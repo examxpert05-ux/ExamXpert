@@ -47,7 +47,7 @@ function ExamXpertLogo() {
 
 export default function App() {
   const [lang, setLang] = useState('en');
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null); // Corrected from state to useState
 
   useEffect(() => {
     // Placeholder for greeting or auth state listener
