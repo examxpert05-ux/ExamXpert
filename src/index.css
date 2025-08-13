@@ -13,3 +13,50 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+/* Header styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 100px;
+  /* Updated padding as per your request */
+}
+
+.header .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.header .logo svg {
+  width: 40px;
+  height: 40px;
+}
+
+.header .logo div {
+  line-height: 1;
+}
+
+.header .logo div>div:first-child {
+  font-weight: 700;
+}
+
+.header .logo div>div:last-child {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+nav {
+  display: flex;
+  gap: 12px;
+}
+
+nav a,
+nav select {
+  text-decoration: none;
+  color: inherit;
+}

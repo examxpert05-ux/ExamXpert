@@ -10,7 +10,7 @@ import BlogPost from './components/BlogPost';
 // import Admin from './components/Admin';
 import Result from './components/Results'; // Fixed typo (Results to Result)
 import Review from './components/Review';
-import './App.css';
+import './index.css'; // Updated to use index.css
 
 const pseudoAuth = {
   currentUser: null,
@@ -30,20 +30,16 @@ const pseudoAuth = {
   }
 };
 
-function ExamXpertLogo({ size = 40 }) {
+function ExamXpertLogo() {
   return (
-    <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }}>
-        <svg width={size} height={size} viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-          <rect rx="10" width="64" height="64" fill="#0b72ff" />
-          <text x="50%" y="58%" textAnchor="middle" fontSize="30" fontWeight="700" fill="#fff" fontFamily="Arial">
-            E
-          </text>
-        </svg>
-        <div style={{ lineHeight: 1 }}>
-          <div style={{ fontWeight: 700 }}>ExamXpert</div>
-          <div style={{ fontSize: 12, color: '#6b7280' }}>Your Exam, Our Responsibility</div>
-        </div>
+    <Link to="/" className="logo">
+      <svg width="40" height="40" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <rect rx="10" width="64" height="64" fill="#0b72ff" />
+        <text x="50%" y="58%" text-anchor="middle" font-size="30" font-weight="700" fill="#fff" font-family="Arial">E</text>
+      </svg>
+      <div>
+        <div>ExamXpert</div>
+        <div>Your Exam, Our Responsibility</div>
       </div>
     </Link>
   );
@@ -59,10 +55,10 @@ export default function App() {
 
   return (
     <Router>
-      <div style={{ maxWidth: 1000, margin: '0 auto', padding: '0 16px' }}>
-        <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 0' }}>
+      <div className="container">
+        <header className="header">
           <ExamXpertLogo />
-          <nav style={{ display: 'flex', gap: 12 }}>
+          <nav className="nav">
             <Link to="/">Home</Link>
             <Link to="/contact">Contact</Link>
             <Link to="/blog">Blog</Link>
@@ -71,7 +67,6 @@ export default function App() {
                 <Link to="/dashboard">Dashboard</Link>
                 <Link to="/admin">Admin</Link>
                 <button
-                  style={{ padding: '8px 12px', background: '#ef4444', color: '#fff', borderRadius: 8, border: 'none' }}
                   onClick={() => {
                     pseudoAuth.signout();
                     setUser(null);
