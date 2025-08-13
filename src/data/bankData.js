@@ -108,6 +108,116 @@ const bankQuestions = [
             { optionId: 3, text: "Recurring Deposit" }
         ],
         answerId: 1
+    },
+    {
+        id: "b11",
+        question: "Which banking service allows you to withdraw money without visiting a branch?",
+        options: [
+            { optionId: 0, text: "ATM" },
+            { optionId: 1, text: "RTGS" },
+            { optionId: 2, text: "NEFT" },
+            { optionId: 3, text: "SWIFT" }
+        ],
+        answerId: 0
+    },
+    {
+        id: "b12",
+        question: "What does 'SWIFT' stand for in international banking?",
+        options: [
+            { optionId: 0, text: "Society for Worldwide Interbank Financial Telecommunication" },
+            { optionId: 1, text: "Secure Worldwide Internet Funds Transfer" },
+            { optionId: 2, text: "System for Web International Fund Transactions" },
+            { optionId: 3, text: "Standard Worldwide Instant Fund Transfer" }
+        ],
+        answerId: 0
+    },
+    {
+        id: "b13",
+        question: "Which banking instrument is used for making payments without using cash?",
+        options: [
+            { optionId: 0, text: "Cheque" },
+            { optionId: 1, text: "Cash Slip" },
+            { optionId: 2, text: "Passbook" },
+            { optionId: 3, text: "Deposit Slip" }
+        ],
+        answerId: 0
+    },
+    {
+        id: "b14",
+        question: "What is the term for an account that earns interest daily but is accessible anytime?",
+        options: [
+            { optionId: 0, text: "Savings Account" },
+            { optionId: 1, text: "Recurring Deposit" },
+            { optionId: 2, text: "Fixed Deposit" },
+            { optionId: 3, text: "Loan Account" }
+        ],
+        answerId: 0
+    },
+    {
+        id: "b15",
+        question: "What does KYC stand for in banking?",
+        options: [
+            { optionId: 0, text: "Know Your Customer" },
+            { optionId: 1, text: "Keep Your Cash" },
+            { optionId: 2, text: "Know Your Currency" },
+            { optionId: 3, text: "Keep Your Credit" }
+        ],
+        answerId: 0
+    },
+    {
+        id: "b16",
+        question: "Which bank is known as the 'Central Bank of India'?",
+        options: [
+            { optionId: 0, text: "Reserve Bank of India" },
+            { optionId: 1, text: "State Bank of India" },
+            { optionId: 2, text: "Central Bank of India" },
+            { optionId: 3, text: "ICICI Bank" }
+        ],
+        answerId: 0
+    },
+    {
+        id: "b17",
+        question: "Which scheme provides accidental insurance linked to savings accounts in India?",
+        options: [
+            { optionId: 0, text: "Pradhan Mantri Suraksha Bima Yojana" },
+            { optionId: 1, text: "Pradhan Mantri Jan Dhan Yojana" },
+            { optionId: 2, text: "Pradhan Mantri Jeevan Jyoti Bima Yojana" },
+            { optionId: 3, text: "Atal Pension Yojana" }
+        ],
+        answerId: 0
+    },
+    {
+        id: "b18",
+        question: "Which of these is a digital payment method in India?",
+        options: [
+            { optionId: 0, text: "NEFT" },
+            { optionId: 1, text: "UPI" },
+            { optionId: 2, text: "Cheque" },
+            { optionId: 3, text: "Demand Draft" }
+        ],
+        answerId: 1
+    },
+    {
+        id: "b19",
+        question: "What is the main purpose of a bank loan?",
+        options: [
+            { optionId: 0, text: "To deposit money" },
+            { optionId: 1, text: "To provide funds for specific needs" },
+            { optionId: 2, text: "To withdraw without charges" },
+            { optionId: 3, text: "To print currency" }
+        ],
+        answerId: 1
+    },
+    {
+        id: "b20",
+        question: "Which Indian bank launched the YONO app?",
+        options: [
+            { optionId: 0, text: "HDFC Bank" },
+            { optionId: 1, text: "State Bank of India" },
+            { optionId: 2, text: "ICICI Bank" },
+            { optionId: 3, text: "Axis Bank" }
+        ],
+        answerId: 1
     }
 ];
 

@@ -8,7 +8,7 @@ import Contact from './components/Contact';
 import Blog from './components/Blog';
 import BlogPost from './components/BlogPost';
 // import Admin from './components/Admin';
-import Result from './components/Results'; // Fixed typo (Results to Result)
+import Result from './components/Result'; 
 import Review from './components/Review';
 import './index.css'; // Updated to use index.css
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Question from './Question';
 import Timer from './Timer';
@@ -14,6 +14,7 @@ export default function Quiz() {
     const [answers, setAnswers] = useState({});
     const [timeLeft, setTimeLeft] = useState(600); // 10 minutes
     const [submitted, setSubmitted] = useState(false);
+    const questionRefs = useRef([]);
 
     const exams = useMemo(() => [
         { id: 't1', title: 'Bank PO Prelims', data: bankData },
@@ -42,6 +43,8 @@ export default function Quiz() {
             setAnswers({});
             setTimeLeft(600);
             setSubmitted(false);
+            // Reset refs array when questions change
+            questionRefs.current = Array(shuffledQuestions.length).fill().map((_, i) => questionRefs.current[i] || React.createRef());
         }
     }, [id, exams]);
 
@@ -68,20 +71,24 @@ export default function Quiz() {
         navigate('/result', { state: { result, title } }); // Navigate to result with title
     };
 
+    const handleNavigate = (index) => {
+        if (questionRefs.current[index] && questionRefs.current[index].current) {
+            questionRefs.current[index].current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    };
+
     return (
         <section style={{ padding: 20 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
                 <h3>Live Test — {exams.find(e => e.id === id)?.title}</h3>
                 <Timer timeLeft={timeLeft} setTimeLeft={setTimeLeft} submitted={submitted} onTimeout={handleSubmit} />
             </div>
-            {/* Navigation and Full screen aligned extreme left/right */}
             <div className="card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <h4 style={{ margin: 0 }}>Navigation</h4>
                 <label style={{ margin: 0 }}>
                     <input type="checkbox" /> Full screen (demo)
                 </label>
             </div>
-            {/* Moved Navigation to Top */}
             <div
                 style={{
                     display: 'flex',
@@ -94,10 +101,10 @@ export default function Quiz() {
             >
                 {questions.map((q, i) => {
                     const isAnswered = answers[i] !== undefined && answers[i] !== null && answers[i] !== '';
-
                     return (
                         <button
                             key={q.id || i}
+                            onClick={() => handleNavigate(i)}
                             style={{
                                 padding: 8,
                                 borderRadius: 8,
@@ -105,6 +112,7 @@ export default function Quiz() {
                                 color: isAnswered ? '#fff' : '#111',
                                 minWidth: '40px',
                                 textAlign: 'center',
+                                cursor: 'pointer',
                             }}
                         >
                             {i + 1}
@@ -112,19 +120,18 @@ export default function Quiz() {
                     );
                 })}
             </div>
-
-
             <div style={{ marginTop: 12 }}>
                 <div className="card">
                     {questions.map((q, index) => (
-                        <Question
-                            key={q.id || index}
-                            question={q}
-                            index={index}
-                            selectedOption={answers[index]}
-                            onOptionChange={handleOptionChange}
-                            submitted={submitted}
-                        />
+                        <div ref={questionRefs.current[index]} key={q.id || index}>
+                            <Question
+                                question={q}
+                                index={index}
+                                selectedOption={answers[index]}
+                                onOptionChange={handleOptionChange}
+                                submitted={submitted}
+                            />
+                        </div>
                     ))}
                     {!submitted && (
                         <button className="btn btn-red submit-button" onClick={handleSubmit}>
@@ -133,7 +140,6 @@ export default function Quiz() {
                     )}
                 </div>
             </div>
-
         </section>
     );
 }

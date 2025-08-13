@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import '../App.css';
 import './Quiz/Quiz.css';
@@ -8,6 +8,17 @@ export default function Review() {
     const result = state?.result;
     const responses = JSON.parse(localStorage.getItem('quizResponses') || '{}');
     const title = state?.title; // Rely on dynamic title from Result.js
+    const sectionRef = useRef(null);
+
+    useEffect(() => {
+        // Scroll to top with a slight delay
+        const timer = setTimeout(() => {
+            if (sectionRef.current) {
+                sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }, 100);
+        return () => clearTimeout(timer); // Cleanup timer
+    }, []);
 
     if (!result || !responses.questions) {
         return (
@@ -37,7 +48,7 @@ export default function Review() {
     }
 
     return (
-        <section style={{ padding: 40 }}>
+        <section ref={sectionRef} style={{ padding: 40 }}>
             <h2>Review — {title || 'Unknown Test'}</h2> {/* Fallback only for display */}
             <div className="card">
                 <h3>Your Score: {result.score} / {result.total}</h3>

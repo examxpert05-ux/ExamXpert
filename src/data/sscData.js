@@ -108,6 +108,117 @@ const sscData = [
             { optionId: 3, text: "Opal" }
         ],
         answerId: 0
+    },
+    // New 10 questions
+    {
+        id: "s11",
+        question: "Who was the first President of India?",
+        options: [
+            { optionId: 0, text: "Dr. Rajendra Prasad" },
+            { optionId: 1, text: "Sarvepalli Radhakrishnan" },
+            { optionId: 2, text: "Zakir Husain" },
+            { optionId: 3, text: "V. V. Giri" }
+        ],
+        answerId: 0
+    },
+    {
+        id: "s12",
+        question: "What is the capital of Australia?",
+        options: [
+            { optionId: 0, text: "Sydney" },
+            { optionId: 1, text: "Melbourne" },
+            { optionId: 2, text: "Canberra" },
+            { optionId: 3, text: "Perth" }
+        ],
+        answerId: 2
+    },
+    {
+        id: "s13",
+        question: "Who discovered penicillin?",
+        options: [
+            { optionId: 0, text: "Alexander Fleming" },
+            { optionId: 1, text: "Louis Pasteur" },
+            { optionId: 2, text: "Joseph Lister" },
+            { optionId: 3, text: "Edward Jenner" }
+        ],
+        answerId: 0
+    },
+    {
+        id: "s14",
+        question: "Which planet is known as the 'Red Planet'?",
+        options: [
+            { optionId: 0, text: "Mercury" },
+            { optionId: 1, text: "Venus" },
+            { optionId: 2, text: "Mars" },
+            { optionId: 3, text: "Jupiter" }
+        ],
+        answerId: 2
+    },
+    {
+        id: "s15",
+        question: "In which state is the Sun Temple of Konark located?",
+        options: [
+            { optionId: 0, text: "Odisha" },
+            { optionId: 1, text: "Rajasthan" },
+            { optionId: 2, text: "Madhya Pradesh" },
+            { optionId: 3, text: "Gujarat" }
+        ],
+        answerId: 0
+    },
+    {
+        id: "s16",
+        question: "What is the SI unit of force?",
+        options: [
+            { optionId: 0, text: "Newton" },
+            { optionId: 1, text: "Joule" },
+            { optionId: 2, text: "Pascal" },
+            { optionId: 3, text: "Watt" }
+        ],
+        answerId: 0
+    },
+    {
+        id: "s17",
+        question: "Which is the smallest prime number?",
+        options: [
+            { optionId: 0, text: "1" },
+            { optionId: 1, text: "2" },
+            { optionId: 2, text: "3" },
+            { optionId: 3, text: "5" }
+        ],
+        answerId: 1
+    },
+    {
+        id: "s18",
+        question: "Who painted the Mona Lisa?",
+        options: [
+            { optionId: 0, text: "Vincent van Gogh" },
+            { optionId: 1, text: "Leonardo da Vinci" },
+            { optionId: 2, text: "Pablo Picasso" },
+            { optionId: 3, text: "Michelangelo" }
+        ],
+        answerId: 1
+    },
+    {
+        id: "s19",
+        question: "Which Indian city is known as the 'Pink City'?",
+        options: [
+            { optionId: 0, text: "Jaipur" },
+            { optionId: 1, text: "Jodhpur" },
+            { optionId: 2, text: "Udaipur" },
+            { optionId: 3, text: "Bikaner" }
+        ],
+        answerId: 0
+    },
+    {
+        id: "s20",
+        question: "What is the boiling point of water at sea level?",
+        options: [
+            { optionId: 0, text: "90°C" },
+            { optionId: 1, text: "95°C" },
+            { optionId: 2, text: "100°C" },
+            { optionId: 3, text: "105°C" }
+        ],
+        answerId: 2
     }
 ];
 

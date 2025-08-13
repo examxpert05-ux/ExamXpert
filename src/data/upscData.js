@@ -108,6 +108,116 @@ const upscQuestions = [
             { optionId: 3, text: "Galileo Galilei" }
         ],
         answerId: 1
+    },
+    {
+        id: "u11",
+        question: "Which is the smallest state in India by area?",
+        options: [
+            { optionId: 0, text: "Goa" },
+            { optionId: 1, text: "Sikkim" },
+            { optionId: 2, text: "Tripura" },
+            { optionId: 3, text: "Nagaland" }
+        ],
+        answerId: 0
+    },
+    {
+        id: "u12",
+        question: "Who was the first President of India?",
+        options: [
+            { optionId: 0, text: "Dr. Rajendra Prasad" },
+            { optionId: 1, text: "Sarvepalli Radhakrishnan" },
+            { optionId: 2, text: "Zakir Hussain" },
+            { optionId: 3, text: "V. V. Giri" }
+        ],
+        answerId: 0
+    },
+    {
+        id: "u13",
+        question: "Which is the national animal of India?",
+        options: [
+            { optionId: 0, text: "Elephant" },
+            { optionId: 1, text: "Bengal Tiger" },
+            { optionId: 2, text: "Lion" },
+            { optionId: 3, text: "Leopard" }
+        ],
+        answerId: 1
+    },
+    {
+        id: "u14",
+        question: "Where is the Sun Temple located?",
+        options: [
+            { optionId: 0, text: "Konark" },
+            { optionId: 1, text: "Modhera" },
+            { optionId: 2, text: "Khajuraho" },
+            { optionId: 3, text: "Somnath" }
+        ],
+        answerId: 0
+    },
+    {
+        id: "u15",
+        question: "Which Indian city is known as the 'City of Lakes'?",
+        options: [
+            { optionId: 0, text: "Bhopal" },
+            { optionId: 1, text: "Udaipur" },
+            { optionId: 2, text: "Srinagar" },
+            { optionId: 3, text: "Hyderabad" }
+        ],
+        answerId: 1
+    },
+    {
+        id: "u16",
+        question: "In which year did India win its first Cricket World Cup?",
+        options: [
+            { optionId: 0, text: "1983" },
+            { optionId: 1, text: "1987" },
+            { optionId: 2, text: "1996" },
+            { optionId: 3, text: "2003" }
+        ],
+        answerId: 0
+    },
+    {
+        id: "u17",
+        question: "Who is known as the 'Missile Man of India'?",
+        options: [
+            { optionId: 0, text: "Vikram Sarabhai" },
+            { optionId: 1, text: "A. P. J. Abdul Kalam" },
+            { optionId: 2, text: "Satish Dhawan" },
+            { optionId: 3, text: "K. Sivan" }
+        ],
+        answerId: 1
+    },
+    {
+        id: "u18",
+        question: "Which Mughal Emperor built the Taj Mahal?",
+        options: [
+            { optionId: 0, text: "Akbar" },
+            { optionId: 1, text: "Jahangir" },
+            { optionId: 2, text: "Shah Jahan" },
+            { optionId: 3, text: "Aurangzeb" }
+        ],
+        answerId: 2
+    },
+    {
+        id: "u19",
+        question: "Which Indian state has the longest coastline?",
+        options: [
+            { optionId: 0, text: "Andhra Pradesh" },
+            { optionId: 1, text: "Maharashtra" },
+            { optionId: 2, text: "Gujarat" },
+            { optionId: 3, text: "Tamil Nadu" }
+        ],
+        answerId: 2
+    },
+    {
+        id: "u20",
+        question: "Who invented the telephone?",
+        options: [
+            { optionId: 0, text: "Alexander Graham Bell" },
+            { optionId: 1, text: "Thomas Edison" },
+            { optionId: 2, text: "Michael Faraday" },
+            { optionId: 3, text: "Nikola Tesla" }
+        ],
+        answerId: 0
     }
 ];
 
