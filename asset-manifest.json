@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ExamXpert/static/css/main.136918c6.css",
+    "main.js": "/ExamXpert/static/js/main.a0bb65e3.js",
+    "index.html": "/ExamXpert/index.html",
+    "main.136918c6.css.map": "/ExamXpert/static/css/main.136918c6.css.map",
+    "main.a0bb65e3.js.map": "/ExamXpert/static/js/main.a0bb65e3.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.136918c6.css",
+    "static/js/main.a0bb65e3.js"
+  ]
+}
