@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { t } from '../../utils/translations.js';
 import LoginForm from './LoginForm';
 import '../../App.css';
 
@@ -21,7 +22,7 @@ const pseudoAuth = {
     }
 };
 
-export default function Auth({ onLogin }) {
+export default function Auth({ onLogin, lang = 'en' }) {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
@@ -36,20 +37,20 @@ export default function Auth({ onLogin }) {
         e.preventDefault();
         const success = await pseudoAuth.signin({ email });
         if (success) onLogin({ email, uid: 'u' + Date.now() });
-        else alert('User not found (demo)');
+        else alert(t('userNotFound', lang));
     }
 
     return (
         <section style={{ padding: 20 }}>
             <div style={{ display: 'flex', gap: 12 }}>
                 <form onSubmit={signup} style={{ display: 'grid', gap: 8 }}>
-                    <h3>Create Account</h3>
-                    <input required placeholder="Full name" value={name} onChange={e => setName(e.target.value)} />
-                    <input required placeholder="Email" type="email" value={email} onChange={e => setEmail(e.target.value)} />
-                    <input placeholder="Phone" value={phone} onChange={e => setPhone(e.target.value)} />
-                    <button className="btn">Sign Up (demo)</button>
+                    <h3>{t('createAccount', lang)}</h3>
+                    <input required placeholder={t('fullName', lang)} value={name} onChange={e => setName(e.target.value)} />
+                    <input required placeholder={t('email', lang)} type="email" value={email} onChange={e => setEmail(e.target.value)} />
+                    <input placeholder={t('phone', lang)} value={phone} onChange={e => setPhone(e.target.value)} />
+                    <button className="btn">{t('signUpDemo', lang)}</button>
                 </form>
-                <LoginForm email={email} setEmail={setEmail} signin={signin} />
+                <LoginForm email={email} setEmail={setEmail} signin={signin} lang={lang} />
             </div>
         </section>
     );

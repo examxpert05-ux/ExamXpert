@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { t } from '../../utils/translations.js';
+import './Payment.css';
 import '../../App.css';
 
 const RAZORPAY_KEY = 'YOUR_RAZORPAY_TEST_KEY';
@@ -15,7 +17,7 @@ function loadRazorpayScript() {
     });
 }
 
-export default function RazorpayButton({ amount = 1000, description = 'Test Purchase' }) {
+export default function RazorpayButton({ amount = 1000, description = 'Test Purchase', lang = 'en' }) {
     const [loading, setLoading] = useState(false);
 
     const handlePay = async () => {
@@ -45,7 +47,7 @@ export default function RazorpayButton({ amount = 1000, description = 'Test Purc
 
     return (
         <button className="btn btn-purple" onClick={handlePay} disabled={loading}>
-            {loading ? 'Loading...' : 'Buy'}
+            {loading ? 'Loading...' : t('buy', lang)}
         </button>
     );
 }

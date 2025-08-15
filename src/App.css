@@ -83,77 +83,51 @@
   max-height: 300px;
   object-fit: cover;
   border-radius: 8px;
+  display: block;
+  margin: 20px auto;
 }
 
-.blog-frame-wrapper {
-  position: relative;
-  display: inline-block;
-}
-
-.blog-frame-1::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
+/* Frame styles for individual blog posts - full width */
+.blog-frame-1 {
   width: 100%;
-  height: 100%;
-  background-image: url('/BlogFrames/frame1.webp');
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  pointer-events: none;
+  padding: 12px 12px;
+  border: 2px solid #d1d5db;
+  border-radius: 12px;
+  margin: 20px 0;
 }
 
-.blog-frame-2::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
+.blog-frame-2 {
   width: 100%;
-  height: 100%;
-  background-image: url('/BlogFrames/frame2.webp');
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  pointer-events: none;
+  padding: 12px 12px;
+  border: 2px solid #d1d5db;
+  border-radius: 12px;
+  margin: 20px 0;
 }
 
-.blog-frame-3::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
+.blog-frame-3 {
   width: 100%;
-  height: 100%;
-  background-image: url('/BlogFrames/frame3.webp');
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  pointer-events: none;
+  padding: 12px 12px;
+  border: 2px solid #d1d5db;
+  border-radius: 12px;
+  margin: 20px 0;
 }
 
-.blog-frame-4::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
+.blog-frame-4 {
   width: 100%;
-  height: 100%;
-  background-image: url('/BlogFrames/frame4.png');
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  pointer-events: none;
+  padding: 12px 12px;
+  border: 2px solid #d1d5db;
+  border-radius: 12px;
+  margin: 20px 0;
 }
 
-.blog-frame-5::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
+.blog-frame-5 {
   width: 100%;
-  height: 100%;
-  background-image: url('/BlogFrames/frame5.jpg');
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  pointer-events: none;
+  padding: 12px 12px;
+  border: 2px solid #d1d5db;
+  border-radius: 12px;
+  margin: 20px 0;
 }
+
 
 /* New class for list view thumbnails */
 .blog-image-thumbnail {

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import '../App.css';
 import './Quiz/Quiz.css';
@@ -9,10 +9,19 @@ export default function Review() {
     const responses = JSON.parse(localStorage.getItem('quizResponses') || '{}');
     const title = state?.title; // Rely on dynamic title from Result.js
     const sectionRef = useRef(null);
+    const [showScrollTop, setShowScrollTop] = useState(false);
 
     useEffect(() => {
-        // Remove auto-scroll to keep header visible
+        const handleScroll = () => {
+            setShowScrollTop(window.scrollY > 300);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
     if (!result || !responses.questions) {
         return (
@@ -85,6 +94,33 @@ export default function Review() {
             <Link to="/result" className="btn" style={{ backgroundColor: '#10b981', color: '#fff', marginTop: '32px !important' }} state={{ result, title }}>
                 Go to Result
             </Link>
+            
+            {showScrollTop && (
+                <button
+                    onClick={scrollToTop}
+                    style={{
+                        position: 'fixed',
+                        right: '20px',
+                        bottom: '20px',
+                        width: '50px',
+                        height: '50px',
+                        borderRadius: '50%',
+                        background: '#0b72ff',
+                        color: '#fff',
+                        border: 'none',
+                        cursor: 'pointer',
+                        fontSize: '20px',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                        zIndex: 1000,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}
+                    title="Scroll to top"
+                >
+                    ↑
+                </button>
+            )}
         </section>
     );
 }
