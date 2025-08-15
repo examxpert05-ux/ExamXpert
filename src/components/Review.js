@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import '../App.css';
 import './Quiz/Quiz.css';
@@ -11,13 +11,7 @@ export default function Review() {
     const sectionRef = useRef(null);
 
     useEffect(() => {
-        // Scroll to top with a slight delay
-        const timer = setTimeout(() => {
-            if (sectionRef.current) {
-                sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        }, 100);
-        return () => clearTimeout(timer); // Cleanup timer
+        // Remove auto-scroll to keep header visible
     }, []);
 
     if (!result || !responses.questions) {
@@ -53,7 +47,7 @@ export default function Review() {
             <div className="card">
                 <h3>Your Score: {result.score} / {result.total}</h3>
                 <p>
-                    Time taken: {Math.floor(result.timeTaken / 60)}m {result.timeTaken % 60}s
+                    Time taken: {Math.floor(result.timeTaken / 60)}min {result.timeTaken % 60}sec
                 </p>
             </div>
             <div className="card">

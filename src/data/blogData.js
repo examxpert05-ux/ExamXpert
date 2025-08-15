@@ -1,12 +1,13 @@
 const blogData = [
-    {
-        id: 1,
-        title: 'How to Crack Competitive Exams with Smart Study Techniques',
-        excerpt: 'Learn effective strategies to prepare smarter, not harder, for exams.',
-        author: 'Amitesh Gupta',
-        date: 'August 13, 2025, 02:40 PM IST',
-        image: '/BlogImages/blog1.png',
-        content: `
+  {
+    id: 1,
+    title: 'How to Crack Competitive Exams with Smart Study Techniques',
+    excerpt: 'Learn effective strategies to prepare smarter, not harder, for exams.',
+    author: 'Amitesh Gupta',
+    date: 'August 13, 2025, 02:40 PM IST',
+    frame: '/BlogFrames/frame1.jpg',
+    image: '/BlogImages/blog1.png',
+    content: `
       Cracking competitive exams like UPSC, SSC, or Bank PO requires a strategic approach rather than sheer hard work.
       Start by understanding the exam pattern and syllabus thoroughly so you can focus on high-weightage topics first.
       Create a realistic study schedule that balances all subjects, allocating more time to areas where you are weak.
@@ -27,15 +28,16 @@ const blogData = [
       Ensure proper sleep and nutrition to keep your mind sharp.
       Remember, disciplined execution of a smart plan beats random hard work every time.
     `
-    },
-    {
-        id: 2,
-        title: 'Mastering Test-Taking Strategies for Competitive Exams',
-        excerpt: 'Maximize your score with time management and sectional balance.',
-        author: 'Amitesh Gupta',
-        date: 'August 13, 2025, 02:40 PM IST',
-        image: '/BlogImages/blog2.png',
-        content: `
+  },
+  {
+    id: 2,
+    title: 'Mastering Test-Taking Strategies for Competitive Exams',
+    excerpt: 'Maximize your score with time management and sectional balance.',
+    author: 'Amitesh Gupta',
+    date: 'August 13, 2025, 02:40 PM IST',
+    frame: '/BlogFrames/frame2.jpg',
+    image: '/BlogImages/blog2.png',
+    content: `
       Success in competitive exams depends not only on preparation but also on smart test-taking strategies.
       Begin every exam by scanning the entire paper to understand the question distribution.
       Identify and attempt the easiest questions first to secure quick marks and build confidence.
@@ -56,15 +58,16 @@ const blogData = [
       After each test, evaluate your performance to refine strategies.
       Remember — strategy plus preparation is the winning formula.
     `
-    },
-    {
-        id: 3,
-        title: 'Effective Note-Taking Strategies for Exam Preparation',
-        excerpt: 'Organize your study material with proven note-taking techniques.',
-        author: 'Amitesh Gupta',
-        date: 'August 13, 2025, 02:40 PM IST',
-        image: '/BlogImages/blog3.png',
-        content: `
+  },
+  {
+    id: 3,
+    title: 'Effective Note-Taking Strategies for Exam Preparation',
+    excerpt: 'Organize your study material with proven note-taking techniques.',
+    author: 'Amitesh Gupta',
+    date: 'August 13, 2025, 02:40 PM IST',
+    frame: '/BlogFrames/frame3.jpg',
+    image: '/BlogImages/blog3.png',
+    content: `
       Good note-taking helps you organize, review, and recall information effectively during exam prep.
       Choose a structured method like the Cornell note-taking system for maximum efficiency.
       Divide your notes into main ideas, detailed points, and summaries.
@@ -85,15 +88,16 @@ const blogData = [
       Use sticky notes for additional reminders or updates.
       Keep improving your note-taking method as you discover what works best for you.
     `
-    },
-    {
-        id: 4,
-        title: 'How to Stay Motivated During Long-Term Exam Prep',
-        excerpt: 'Keep your focus and energy high throughout your study journey.',
-        author: 'Amitesh Gupta',
-        date: 'August 13, 2025, 02:40 PM IST',
-        image: '/BlogImages/blog4.png',
-        content: `
+  },
+  {
+    id: 4,
+    title: 'How to Stay Motivated During Long-Term Exam Prep',
+    excerpt: 'Keep your focus and energy high throughout your study journey.',
+    author: 'Amitesh Gupta',
+    date: 'August 13, 2025, 02:40 PM IST',
+    frame: '/BlogFrames/frame4.jpg',
+    image: '/BlogImages/blog4.png',
+    content: `
       Preparing for competitive exams like UPSC or SSC requires sustained motivation over months or even years.
       Set clear, achievable goals — for example, finishing one topic each day.
       Break big goals into smaller milestones to keep progress visible.
@@ -114,15 +118,16 @@ const blogData = [
       Keep reminding yourself why you started this journey.
       Remember — persistence is more important than perfection.
     `
-    },
-    {
-        id: 5,
-        title: 'Leveraging Mock Tests to Boost Exam Performance',
-        excerpt: 'Use practice tests to simulate real exam conditions and improve.',
-        author: 'Amitesh Gupta',
-        date: 'August 13, 2025, 02:40 PM IST',
-        image: '/BlogImages/blog5.png',
-        content: `
+  },
+  {
+    id: 5,
+    title: 'Leveraging Mock Tests to Boost Exam Performance',
+    excerpt: 'Use practice tests to simulate real exam conditions and improve.',
+    author: 'Amitesh Gupta',
+    date: 'August 13, 2025, 02:40 PM IST',
+    frame: '/BlogFrames/frame5.jpg',
+    image: '/BlogImages/blog5.png',
+    content: `
       Mock tests are one of the most powerful tools in competitive exam preparation.
       They help you understand the exam format and improve time management skills.
       Start by taking one mock test every week in the initial preparation phase.
@@ -143,7 +148,7 @@ const blogData = [
       Stay calm and treat each mock as an opportunity to improve.
       Over time, you’ll find your confidence and scores improving consistently.
     `
-    }
+  }
 ];
 
 export default blogData;

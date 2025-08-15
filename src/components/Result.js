@@ -25,13 +25,7 @@ export default function Result() {
   useEffect(() => {
     const storedResults = JSON.parse(localStorage.getItem('results') || '[]');
     setResults(storedResults);
-    // Scroll to top with a slight delay
-    const timer = setTimeout(() => {
-      if (sectionRef.current) {
-        sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }, 100);
-    return () => clearTimeout(timer); // Cleanup timer
+    // Remove auto-scroll to prevent page jumping
   }, []);
 
   const last = results.length > 0 ? results[results.length - 1] : null;
@@ -74,39 +68,21 @@ export default function Result() {
         max: maxValue, // Dynamic max based on total questions
         ticks: {
           stepSize: stepSize, // Dynamic step size for 10 equal parts
+          color: 'black',
+          font: {
+            weight: 'bold',
+            size: 12
+          },
+          padding: 8
         },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)'
+        }
       },
       x: {
         ticks: { display: false }, // Hide x-axis labels since we only have one category
       },
     },
-    plugins: [
-      {
-        afterDraw: (chart) => {
-          const ctx = chart.ctx;
-          ctx.save();
-          const xAxis = chart.scales['x'];
-          const yAxis = chart.scales['y'];
-          const dataset = chart.data.datasets;
-
-          // Draw custom labels above bars
-          dataset.forEach((dataset, i) => {
-            const meta = chart.getDatasetMeta(i);
-            meta.data.forEach((bar, index) => {
-              const dataValue = dataset.data[index];
-              ctx.fillStyle = 'black';
-              ctx.font = 'bold 14px Arial';
-              const label = i === 0 ? 'Your Marks' : 'Total Marks';
-              const x = bar.x;
-              const y = bar.y - 10; // Position above the bar
-              ctx.textAlign = 'center';
-              ctx.fillText(label, x, y);
-            });
-          });
-          ctx.restore();
-        },
-      },
-    ],
   };
 
   return (
@@ -118,11 +94,21 @@ export default function Result() {
           <div className="card">
             <h3>Your Score: {last.score} / {last.total}</h3>
             <p>
-              Time taken: {Math.floor(last.timeTaken / 60)}m {last.timeTaken % 60}s
+              Time taken: {Math.floor(last.timeTaken / 60)}min {last.timeTaken % 60}sec
             </p>
           </div>
           <div className="card">
             <h3>Performance Graph</h3>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: 20, marginBottom: 10 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                <div style={{ width: 16, height: 16, backgroundColor: 'rgba(75, 192, 192, 0.6)', border: '1px solid rgba(75, 192, 192, 1)' }}></div>
+                <span style={{ fontSize: 14, fontWeight: 'bold' }}>Your Marks</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                <div style={{ width: 16, height: 16, backgroundColor: 'rgba(255, 99, 132, 0.6)', border: '1px solid rgba(255, 99, 132, 1)' }}></div>
+                <span style={{ fontSize: 14, fontWeight: 'bold' }}>Total Marks</span>
+              </div>
+            </div>
             <Bar ref={chartRef} data={data} options={options} />
           </div>
         </div>
