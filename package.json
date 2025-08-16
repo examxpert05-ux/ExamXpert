@@ -3,7 +3,17 @@
   "version": "1.0.0",
   "description": "ExamXpert - Comprehensive online test preparation platform for competitive exams like UPSC, SSC, Bank PO",
   "author": "ExamXpert Team",
-  "keywords": ["exam", "test", "preparation", "competitive", "upsc", "ssc", "bank", "quiz", "education"],
+  "keywords": [
+    "exam",
+    "test",
+    "preparation",
+    "competitive",
+    "upsc",
+    "ssc",
+    "bank",
+    "quiz",
+    "education"
+  ],
   "homepage": "https://examxpert05-ux.github.io/ExamXpert",
   "private": true,
   "dependencies": {
