@@ -83,29 +83,6 @@ const translations = {
     hindi: 'Hindi',
     
     // Review Page
-    review: 'समीक्षा',
-    yourScore: 'आपका स्कोर',
-    timeTaken: 'लगा समय',
-    goToResult: 'परिणाम पर जाएं',
-    noQuizResponses: 'कोई क्विज़ प्रतिक्रिया उपलब्ध नहीं है। कृपया पहले एक परीक्षा लें।',
-    unknownTest: 'अज्ञात परीक्षा',
-    
-    // Test Titles
-    bankPOTest: 'बैंक पीओ टेस्ट',
-    sscCGLTest: 'एसएससी सीजीएल टेस्ट',
-    upscTest: 'यूपीएससी टेस्ट',
-    
-    // Feature List Items
-    realExamInterface: 'Real-exam like interface',
-    timerMarkReview: 'Timer, Mark for Review, Section Navigation',
-    performanceGraphs: 'Performance Graphs',
-    
-    // Blog
-    blogTitle: 'Blog',
-    readMore: 'Read More',
-    backToBlog: 'Back to Blog',
-    
-    // Review Page
     review: 'Review',
     yourScore: 'Your Score',
     timeTaken: 'Time taken',
@@ -116,7 +93,17 @@ const translations = {
     // Test Titles
     bankPOTest: 'Bank PO Test',
     sscCGLTest: 'SSC CGL Test',
-    upscTest: 'UPSC Test'
+    upscTest: 'UPSC Test',
+    
+    // Feature List Items
+    realExamInterface: 'Real-exam like interface',
+    timerMarkReview: 'Timer, Mark for Review, Section Navigation',
+    performanceGraphs: 'Performance Graphs',
+    
+    // Blog
+    blogTitle: 'Blog',
+    readMore: 'Read More',
+    backToBlog: 'Back to Blog'
   },
   hi: {
     // Navigation
@@ -209,7 +196,20 @@ const translations = {
     
     // Language Names
     english: 'अंग्रेजी',
-    hindi: 'हिंदी'
+    hindi: 'हिंदी',
+    
+    // Review Page
+    review: 'समीक्षा',
+    yourScore: 'आपका स्कोर',
+    timeTaken: 'लगा समय',
+    goToResult: 'परिणाम पर जाएं',
+    noQuizResponses: 'कोई क्विज़ प्रतिक्रिया उपलब्ध नहीं है। कृपया पहले एक परीक्षा लें।',
+    unknownTest: 'अज्ञात परीक्षा',
+    
+    // Test Titles
+    bankPOTest: 'बैंक पीओ टेस्ट',
+    sscCGLTest: 'एसएससी सीजीएल टेस्ट',
+    upscTest: 'यूपीएससी टेस्ट'
   }
 };
 

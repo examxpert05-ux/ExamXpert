@@ -33,6 +33,7 @@ export default function TestInterface({ lang = 'en' }) {
   const [showSubmitModal, setShowSubmitModal] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
+  const [visitedQuestions, setVisitedQuestions] = useState(new Set([0])); // Track visited questions
   const questionsPerPage = 10;
 
   function selectChoice(qid, choiceIndex) {
@@ -44,6 +45,46 @@ export default function TestInterface({ lang = 'en' }) {
       setTimeout(() => {
         setShowSubmitModal(true);
       }, 500);
+    }
+  }
+
+  function navigateToQuestion(questionIndex) {
+    setCur(questionIndex);
+    setVisitedQuestions(prev => new Set([...prev, questionIndex]));
+    if (fullScreen) {
+      setCurrentPage(Math.floor(questionIndex / questionsPerPage));
+    }
+  }
+
+  function getButtonStyle(questionIndex) {
+    const isAnswered = answers[questions[questionIndex].id] !== undefined;
+    const isCurrentQuestion = questionIndex === cur;
+    const isVisited = visitedQuestions.has(questionIndex);
+    
+    if (isCurrentQuestion) {
+      return {
+        background: '#0b72ff', // Blue for current question
+        color: '#fff',
+        border: '2px solid #0b72ff'
+      };
+    } else if (isAnswered) {
+      return {
+        background: '#10b981', // Green for answered questions
+        color: '#fff',
+        border: '2px solid #10b981'
+      };
+    } else if (isVisited) {
+      return {
+        background: '#ef4444', // Red for visited but not attempted
+        color: '#fff',
+        border: '2px solid #ef4444'
+      };
+    } else {
+      return {
+        background: '#f1f5f9', // Default gray for unvisited
+        color: '#111',
+        border: '2px solid #d1d5db'
+      };
     }
   }
 
@@ -109,8 +150,14 @@ export default function TestInterface({ lang = 'en' }) {
       {isMobile ? (
         <div style={{ marginTop: 80 }}>
         <div className="card" style={{ 
-          padding: 12, 
-          marginBottom: 12
+          padding: 3, 
+          marginBottom: 12,
+          position: 'fixed',
+          top: 120,
+          left: 20,
+          right: 20,
+          zIndex: 999,
+          background: '#fff'
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
             <h4 style={{ margin: 0 }}>{t('navigation', lang)}</h4>
@@ -132,43 +179,33 @@ export default function TestInterface({ lang = 'en' }) {
             </span>
           </div>
           
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 6, marginBottom: 12 }}>
-            {questions.map((q, i) => {
-              const isAnswered = answers[q.id] !== undefined;
-              const isCurrentQuestion = i === cur;
-              return (
-                <button
-                  key={q.id}
-                  onClick={() => {
-                    if (fullScreen) {
-                      setCurrentPage(Math.floor(i / questionsPerPage));
-                    }
-                    setCur(i);
-                  }}
-                  style={{
-                    width: 40,
-                    height: 40,
-                    fontSize: 14,
-                    borderRadius: 6,
-                    background: isCurrentQuestion ? '#10b981' : (isAnswered ? '#0b72ff' : '#f1f5f9'),
-                    color: (isCurrentQuestion || isAnswered) ? '#fff' : '#111',
-                    border: isCurrentQuestion ? '2px solid #10b981' : (isAnswered ? '2px solid #0b72ff' : '2px solid #d1d5db'),
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontWeight: isCurrentQuestion ? 'bold' : 'normal'
-                  }}
-                >
-                  {i + 1}
-                </button>
-              );
-            })}
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', marginBottom: 6 }}>
+            {questions.map((q, i) => (
+              <button
+                key={q.id}
+                onClick={() => navigateToQuestion(i)}
+                style={{
+                  width: 28,
+                  height: 28,
+                  fontSize: 11,
+                  borderRadius: '50%',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontWeight: i === cur ? 'bold' : 'normal',
+                  margin: '1px',
+                  ...getButtonStyle(i)
+                }}
+              >
+                {i + 1}
+              </button>
+            ))}
           </div>
 
         </div>
         
-        <div className="card">
+        <div className="card" style={{ marginTop: 135 }}>
           {!fullScreen ? (
             // Single question view
             <>
@@ -189,13 +226,19 @@ export default function TestInterface({ lang = 'en' }) {
                   </label>
                 ))}
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 28 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 8 }}>
                 <div style={{ display: 'flex', gap: 16 }}>
-                  <button onClick={() => setCur(c => Math.max(0, c - 1))} className="btn">
+                  <button onClick={() => {
+                    const newIndex = cur === 0 ? questions.length - 1 : cur - 1;
+                    navigateToQuestion(newIndex);
+                  }} className="btn">
                     {t('prev', lang)}
                   </button>
                   <button
-                    onClick={() => setCur(c => Math.min(questions.length - 1, c + 1))}
+                    onClick={() => {
+                      const newIndex = cur === questions.length - 1 ? 0 : cur + 1;
+                      navigateToQuestion(newIndex);
+                    }}
                     className="btn btn-green"
                   >
                     {t('next', lang)}
@@ -209,25 +252,8 @@ export default function TestInterface({ lang = 'en' }) {
           ) : (
             // Full screen view with pagination
             <>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-                <h4>{t('questions', lang)} {currentPage * questionsPerPage + 1} - {Math.min((currentPage + 1) * questionsPerPage, questions.length)}</h4>
-                <div>
-                  <button 
-                    onClick={() => setCurrentPage(p => Math.max(0, p - 1))} 
-                    disabled={currentPage === 0}
-                    className="btn" 
-                    style={{ marginRight: 8 }}
-                  >
-                    {t('previousPage', lang)}
-                  </button>
-                  <button 
-                    onClick={() => setCurrentPage(p => Math.min(Math.ceil(questions.length / questionsPerPage) - 1, p + 1))} 
-                    disabled={currentPage >= Math.ceil(questions.length / questionsPerPage) - 1}
-                    className="btn btn-green"
-                  >
-                    {t('nextPage', lang)}
-                  </button>
-                </div>
+              <div style={{ marginBottom: 20 }}>
+                <h4 style={{ textAlign: 'center', marginBottom: 12 }}>{t('questions', lang)} {currentPage * questionsPerPage + 1} - {Math.min((currentPage + 1) * questionsPerPage, questions.length)}</h4>
               </div>
               <div style={{ display: 'grid', gap: 20 }}>
                 {questions.slice(currentPage * questionsPerPage, (currentPage + 1) * questionsPerPage).map((question, index) => (
@@ -279,11 +305,17 @@ export default function TestInterface({ lang = 'en' }) {
                   ))}
                 </div>
                 <div style={{ display: 'flex', gap: 16, marginTop: 28 }}>
-                  <button onClick={() => setCur(c => Math.max(0, c - 1))} className="btn">
+                  <button onClick={() => {
+                    const newIndex = cur === 0 ? questions.length - 1 : cur - 1;
+                    navigateToQuestion(newIndex);
+                  }} className="btn">
                     {t('prev', lang)}
                   </button>
                   <button
-                    onClick={() => setCur(c => Math.min(questions.length - 1, c + 1))}
+                    onClick={() => {
+                      const newIndex = cur === questions.length - 1 ? 0 : cur + 1;
+                      navigateToQuestion(newIndex);
+                    }}
                     className="btn btn-green"
                   >
                     {t('next', lang)}
@@ -368,24 +400,18 @@ export default function TestInterface({ lang = 'en' }) {
               {questions.map((q, i) => (
                 <button
                   key={q.id}
-                  onClick={() => {
-                    if (fullScreen) {
-                      setCurrentPage(Math.floor(i / questionsPerPage));
-                    }
-                    setCur(i);
-                  }}
+                  onClick={() => navigateToQuestion(i)}
                   style={{
                     width: 40,
                     height: 40,
                     fontSize: 14,
                     borderRadius: 6,
-                    background: answers[q.id] !== undefined ? '#0b72ff' : '#f1f5f9',
-                    color: answers[q.id] !== undefined ? '#fff' : '#111',
-                    border: answers[q.id] !== undefined ? '2px solid #0b72ff' : '2px solid #d1d5db',
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    fontWeight: i === cur ? 'bold' : 'normal',
+                    ...getButtonStyle(i)
                   }}
                 >
                   {i + 1}
@@ -403,22 +429,41 @@ export default function TestInterface({ lang = 'en' }) {
       )}
       
       {fullScreen && isMobile && (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 20, gap: 12 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 20, gap: 12 }}>
           <button 
             onClick={() => setCurrentPage(p => Math.max(0, p - 1))} 
             disabled={currentPage === 0}
-            className="btn" 
-            style={{ marginRight: 8 }}
+            className="btn"
           >
             {t('previousPage', lang)}
           </button>
-          <button 
-            onClick={() => setCurrentPage(p => Math.min(Math.ceil(questions.length / questionsPerPage) - 1, p + 1))} 
-            disabled={currentPage >= Math.ceil(questions.length / questionsPerPage) - 1}
-            className="btn btn-green"
-          >
-            {t('nextPage', lang)}
-          </button>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <button 
+              onClick={() => setCurrentPage(p => Math.min(Math.ceil(questions.length / questionsPerPage) - 1, p + 1))} 
+              disabled={currentPage >= Math.ceil(questions.length / questionsPerPage) - 1}
+              className="btn btn-green"
+            >
+              {t('nextPage', lang)}
+            </button>
+            <button 
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              style={{
+                width: '40px',
+                height: '40px',
+                borderRadius: '50%',
+                background: '#0b72ff',
+                color: '#fff',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: '18px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              ↑
+            </button>
+          </div>
         </div>
       )}
       
