@@ -58,8 +58,8 @@ const translations = {
     login: 'Login',
     fullName: 'Full name',
     phone: 'Phone',
-    signUpDemo: 'Sign Up (demo)',
-    loginDemo: 'Login (demo)',
+    signUpDemo: 'Sign Up',
+    loginDemo: 'Login',
     userNotFound: 'User not found (demo)',
     
     // Admin
@@ -82,6 +82,19 @@ const translations = {
     english: 'English',
     hindi: 'Hindi',
     
+    // Review Page
+    review: 'समीक्षा',
+    yourScore: 'आपका स्कोर',
+    timeTaken: 'लगा समय',
+    goToResult: 'परिणाम पर जाएं',
+    noQuizResponses: 'कोई क्विज़ प्रतिक्रिया उपलब्ध नहीं है। कृपया पहले एक परीक्षा लें।',
+    unknownTest: 'अज्ञात परीक्षा',
+    
+    // Test Titles
+    bankPOTest: 'बैंक पीओ टेस्ट',
+    sscCGLTest: 'एसएससी सीजीएल टेस्ट',
+    upscTest: 'यूपीएससी टेस्ट',
+    
     // Feature List Items
     realExamInterface: 'Real-exam like interface',
     timerMarkReview: 'Timer, Mark for Review, Section Navigation',
@@ -90,7 +103,20 @@ const translations = {
     // Blog
     blogTitle: 'Blog',
     readMore: 'Read More',
-    backToBlog: 'Back to Blog'
+    backToBlog: 'Back to Blog',
+    
+    // Review Page
+    review: 'Review',
+    yourScore: 'Your Score',
+    timeTaken: 'Time taken',
+    goToResult: 'Go to Result',
+    noQuizResponses: 'No quiz responses available. Please take a test first.',
+    unknownTest: 'Unknown Test',
+    
+    // Test Titles
+    bankPOTest: 'Bank PO Test',
+    sscCGLTest: 'SSC CGL Test',
+    upscTest: 'UPSC Test'
   },
   hi: {
     // Navigation
@@ -161,8 +187,8 @@ const translations = {
     login: 'लॉगिन',
     fullName: 'पूरा नाम',
     phone: 'फोन',
-    signUpDemo: 'साइन अप (डेमो)',
-    loginDemo: 'लॉगिन (डेमो)',
+    signUpDemo: 'साइन अप',
+    loginDemo: 'लॉगिन',
     userNotFound: 'उपयोगकर्ता नहीं मिला (डेमो)',
     
     // Admin

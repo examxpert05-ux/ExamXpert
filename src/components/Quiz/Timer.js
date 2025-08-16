@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 
-export default function Timer({ timeLeft, setTimeLeft, submitted, onTimeout }) {
+export default function Timer({ timeLeft, setTimeLeft, submitted, onTimeout, lang = 'en' }) {
     const handleTimeout = useCallback(() => {
         onTimeout();
     }, [onTimeout]);
@@ -22,9 +22,11 @@ export default function Timer({ timeLeft, setTimeLeft, submitted, onTimeout }) {
         return `${m}:${s.toString().padStart(2, '0')}`;
     };
 
+    const hindiTimeLeft = lang === 'hi' ? 'बचा समय:' : 'Time left:';
+    
     return (
         <div>
-            Time left: <strong>{formatTime(timeLeft)}</strong>
+            {hindiTimeLeft} <strong>{formatTime(timeLeft)}</strong>
         </div>
     );
 }

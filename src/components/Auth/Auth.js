@@ -26,6 +26,7 @@ export default function Auth({ onLogin, lang = 'en' }) {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
+    const isMobile = window.innerWidth <= 768;
 
     async function signup(e) {
         e.preventDefault();
@@ -42,15 +43,34 @@ export default function Auth({ onLogin, lang = 'en' }) {
 
     return (
         <section style={{ padding: 20 }}>
-            <div style={{ display: 'flex', gap: 12 }}>
-                <form onSubmit={signup} style={{ display: 'grid', gap: 8 }}>
-                    <h3>{t('createAccount', lang)}</h3>
-                    <input required placeholder={t('fullName', lang)} value={name} onChange={e => setName(e.target.value)} />
-                    <input required placeholder={t('email', lang)} type="email" value={email} onChange={e => setEmail(e.target.value)} />
-                    <input placeholder={t('phone', lang)} value={phone} onChange={e => setPhone(e.target.value)} />
-                    <button className="btn">{t('signUpDemo', lang)}</button>
-                </form>
-                <LoginForm email={email} setEmail={setEmail} signin={signin} lang={lang} />
+            <div style={{ 
+                display: 'flex', 
+                flexDirection: isMobile ? 'column' : 'row',
+                gap: 12 
+            }}>
+                {isMobile ? (
+                    <>
+                        <LoginForm email={email} setEmail={setEmail} signin={signin} lang={lang} />
+                        <form onSubmit={signup} style={{ display: 'grid', gap: 8 }}>
+                            <h3>{t('createAccount', lang)}</h3>
+                            <input required placeholder={t('fullName', lang)} value={name} onChange={e => setName(e.target.value)} />
+                            <input required placeholder={t('email', lang)} type="email" value={email} onChange={e => setEmail(e.target.value)} />
+                            <input placeholder={t('phone', lang)} value={phone} onChange={e => setPhone(e.target.value)} />
+                            <button className="btn">{t('signUpDemo', lang)}</button>
+                        </form>
+                    </>
+                ) : (
+                    <>
+                        <form onSubmit={signup} style={{ display: 'grid', gap: 8 }}>
+                            <h3>{t('createAccount', lang)}</h3>
+                            <input required placeholder={t('fullName', lang)} value={name} onChange={e => setName(e.target.value)} />
+                            <input required placeholder={t('email', lang)} type="email" value={email} onChange={e => setEmail(e.target.value)} />
+                            <input placeholder={t('phone', lang)} value={phone} onChange={e => setPhone(e.target.value)} />
+                            <button className="btn">{t('signUpDemo', lang)}</button>
+                        </form>
+                        <LoginForm email={email} setEmail={setEmail} signin={signin} lang={lang} />
+                    </>
+                )}
             </div>
         </section>
     );

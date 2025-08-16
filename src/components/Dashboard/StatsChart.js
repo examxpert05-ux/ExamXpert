@@ -12,19 +12,21 @@ import {
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-export default function StatsChart({ score, total }) {
+export default function StatsChart({ score, total, lang = 'en' }) {
+  const hindiYourMarks = lang === 'hi' ? 'आपके अंक' : 'Your Marks';
+  const hindiTotalMarks = lang === 'hi' ? 'कुल अंक' : 'Total Marks';
   const data = {
     labels: [''],
     datasets: [
       {
-        label: 'Your Marks',
+        label: hindiYourMarks,
         data: [score],
         backgroundColor: 'rgba(75, 192, 192, 0.6)',
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1,
       },
       {
-        label: 'Total Marks',
+        label: hindiTotalMarks,
         data: [total],
         backgroundColor: 'rgba(255, 99, 132, 0.6)',
         borderColor: 'rgba(255, 99, 132, 1)',
@@ -60,11 +62,11 @@ export default function StatsChart({ score, total }) {
       <div style={{ display: 'flex', justifyContent: 'center', gap: 20, marginBottom: 10 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
           <div style={{ width: 16, height: 16, backgroundColor: 'rgba(75, 192, 192, 0.6)', border: '1px solid rgba(75, 192, 192, 1)' }}></div>
-          <span style={{ fontSize: 14, fontWeight: 'bold' }}>Your Marks</span>
+          <span style={{ fontSize: 14, fontWeight: 'bold' }}>{hindiYourMarks}</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
           <div style={{ width: 16, height: 16, backgroundColor: 'rgba(255, 99, 132, 0.6)', border: '1px solid rgba(255, 99, 132, 1)' }}></div>
-          <span style={{ fontSize: 14, fontWeight: 'bold' }}>Total Marks</span>
+          <span style={{ fontSize: 14, fontWeight: 'bold' }}>{hindiTotalMarks}</span>
         </div>
       </div>
       <Bar data={data} options={options} />

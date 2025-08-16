@@ -1,62 +1,62 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { useLocation, Link } from 'react-router-dom';
+import { t } from '../utils/translations.js';
+import { getTestByTitle } from '../config/testData.js';
 import '../App.css';
 import './Quiz/Quiz.css';
 
-export default function Review() {
+export default function Review({ lang = 'en' }) {
     const { state } = useLocation();
     const result = state?.result;
-    const responses = JSON.parse(localStorage.getItem('quizResponses') || '{}');
-    const title = state?.title; // Rely on dynamic title from Result.js
-    const sectionRef = useRef(null);
+    const responses = useMemo(() => JSON.parse(localStorage.getItem('quizResponses') || '{}'), []);
+    const title = state?.title;
     const [showScrollTop, setShowScrollTop] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
             setShowScrollTop(window.scrollY > 300);
         };
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    const scrollToTop = () => {
+    const scrollToTop = useCallback(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
+    }, []);
+
+    const translations = useMemo(() => ({
+        review: t('review', lang),
+        min: lang === 'hi' ? 'मिनट' : 'min',
+        sec: lang === 'hi' ? 'सेकंड' : 'sec',
+        yourScore: t('yourScore', lang),
+        timeTaken: t('timeTaken', lang),
+        goToResult: t('goToResult', lang)
+    }), [lang]);
+
+    const displayTitle = useMemo(() => {
+        if (!title) return t('unknownTest', lang);
+        const testData = getTestByTitle(title);
+        return testData ? (lang === 'hi' ? testData.hindiTitle : testData.title) : title;
+    }, [title, lang]);
+
+    const optionLabels = useMemo(() => ['A', 'B', 'C', 'D'], []);
 
     if (!result || !responses.questions) {
         return (
             <section style={{ padding: 40 }}>
-                <h2>Review</h2>
-                <p>No quiz responses available. Please take a test first.</p>
-                <p>Debug Info:</p>
-                <ul>
-                    <li>Result: {result ? JSON.stringify(result) : 'Missing'}</li>
-                    <li>Responses: {responses ? JSON.stringify(responses) : 'Missing'}</li>
-                    <li>Questions: {responses.questions ? `${responses.questions.length} questions` : 'Missing'}</li>
-                    <li>Exam ID: {responses.examId || 'Missing'}</li>
-                    <li>Title: {title || 'Not passed'}</li> {/* Debug info */}
-                </ul>
+                <h2>{translations.review}</h2>
+                <p>{t('noQuizResponses', lang)}</p>
             </section>
         );
     }
 
-    const optionLabels = ['A', 'B', 'C', 'D'];
-
-    // Debug: Log computed style of the button
-    if (typeof window !== 'undefined') {
-        const button = document.querySelector('.btn');
-        if (button) {
-            console.log('Button marginTop:', window.getComputedStyle(button).marginTop);
-        }
-    }
-
     return (
-        <section ref={sectionRef} style={{ padding: 40 }}>
-            <h2>Review — {title || 'Unknown Test'}</h2> {/* Fallback only for display */}
+        <section style={{ padding: 40 }}>
+            <h2>{translations.review} — {displayTitle}</h2>
             <div className="card">
-                <h3>Your Score: {result.score} / {result.total}</h3>
+                <h3>{translations.yourScore}: {result.score} / {result.total}</h3>
                 <p>
-                    Time taken: {Math.floor(result.timeTaken / 60)}min {result.timeTaken % 60}sec
+                    {translations.timeTaken}: {Math.floor(result.timeTaken / 60)} {translations.min} {result.timeTaken % 60} {translations.sec}
                 </p>
             </div>
             <div className="card">
@@ -67,7 +67,7 @@ export default function Review() {
                     return (
                         <div key={q.id || index} style={{ marginBottom: 20 }}>
                             <p>
-                                <strong>Q{index + 1}:</strong> {q.question}
+                                <strong>Q{index + 1}:</strong> {lang === 'hi' ? (q.hindiQuestion || q.question) : q.question}
                             </p>
                             {q.options.map((option, optIndex) => {
                                 const isCorrect = option.optionId === correctAnswerId;
@@ -81,9 +81,9 @@ export default function Review() {
                                         style={isCorrect ? { fontWeight: 'bold' } : { marginBottom: '2px' }}
                                     >
                                         <span className="marker-space">
-                                            {isUserAnswer && isCorrect ? '✔' : isUserAnswer ? '✘' : ' '} {/* Space for alignment */}
+                                            {isUserAnswer && isCorrect ? '✔' : isUserAnswer ? '✘' : ' '}
                                         </span>
-                                        <span className="option-label">{optionLabels[optIndex]}.</span> {option.text}
+                                        <span className="option-label">{optionLabels[optIndex]}.</span> {lang === 'hi' ? (option.hindiText || option.text) : option.text}
                                     </p>
                                 );
                             })}
@@ -92,7 +92,7 @@ export default function Review() {
                 })}
             </div>
             <Link to="/result" className="btn" style={{ backgroundColor: '#10b981', color: '#fff', marginTop: '32px !important' }} state={{ result, title }}>
-                Go to Result
+                {translations.goToResult}
             </Link>
             
             {showScrollTop && (
@@ -117,6 +117,7 @@ export default function Review() {
                         justifyContent: 'center'
                     }}
                     title="Scroll to top"
+                    aria-label="Scroll to top"
                 >
                     ↑
                 </button>

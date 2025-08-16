@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 // Components
 import Result from './components/Result.js';
 import Review from './components/Review.js';
-import Blog from './components/Blog.js';
+import BlogList from './components/BlogList.js';
 
 import Dashboard from './components/Dashboard/Dashboard.js';
 import Home from './components/Home.js';
@@ -90,38 +90,47 @@ export default function App() {
   return (
     <Router>
       <div style={{ background: '#f7fafc', minHeight: '100vh' }}>
-        <header style={{ background: '#fff', boxShadow: '0 2px 6px rgba(0,0,0,0.06)', position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000 }}>
+        <header style={{ background: '#fff', boxShadow: '0 2px 6px rgba(0,0,0,0.06)', position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000, transform: 'translateZ(0)' }}>
           <div style={containerStyle}>
             <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
               <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 12, textDecoration: 'none', color: '#111' }}>
                 <ExamXpertLogo lang={lang} />
               </Link>
-              <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-                <Link to="/" style={{ color: '#6b7280' }}>{t('home', lang)}</Link>
-                <Link to="/blog" style={{ color: '#6b7280' }}>{t('blog', lang)}</Link>
-                <Link to="/contact" style={{ color: '#6b7280' }}>{t('contact', lang)}</Link>
-                <Link to="/dashboard" style={{ color: '#6b7280' }}>{t('dashboard', lang)}</Link>
-                <Link to="/admin" style={{ color: '#6b7280' }}>{t('admin', lang)}</Link>
-                <select value={lang} onChange={e => setLang(e.target.value)} style={{ padding: '12px 6px 8px 6px' }}>
-                  <option value="en">{t('english', lang)}</option>
-                  <option value="hi">{t('hindi', lang)}</option>
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+                <div style={{ display: window.innerWidth > 768 ? 'flex' : 'none', gap: 12, alignItems: 'center' }}>
+                  <Link to="/" style={{ color: '#6b7280', fontSize: '14px' }}>{t('home', lang)}</Link>
+                  <Link to="/blog" style={{ color: '#6b7280', fontSize: '14px' }}>{t('blog', lang)}</Link>
+                  <Link to="/contact" style={{ color: '#6b7280', fontSize: '14px' }}>{t('contact', lang)}</Link>
+                  <Link to="/dashboard" style={{ color: '#6b7280', fontSize: '14px' }}>{t('dashboard', lang)}</Link>
+                </div>
+                <select value={lang} onChange={e => setLang(e.target.value)} style={{ padding: '8px 4px', fontSize: '12px' }}>
+                  <option value="en">EN</option>
+                  <option value="hi">हि</option>
                 </select>
                 {user ? (
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                    <div style={{ padding: 8, background: '#eef2ff', borderRadius: 8 }}>
-                      {user.name || user.email}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                    <div style={{ padding: '4px 8px', background: '#eef2ff', borderRadius: 6, fontSize: '12px' }}>
+                      {(user.name || user.email).substring(0, 10)}
                     </div>
-                    <button onClick={() => { mockAuth.signout(); setUser(null); }} style={{ padding: 8 }}>
+                    <button onClick={() => { mockAuth.signout(); setUser(null); }} style={{ padding: '4px 8px', fontSize: '12px' }}>
                       {t('logout', lang)}
                     </button>
                   </div>
                 ) : (
                   <Link to="/auth">
-                    <button style={btn}>{t('loginSignup', lang)}</button>
+                    <button style={{ ...btn, padding: '8px 12px', fontSize: '12px' }}>{t('loginSignup', lang)}</button>
                   </Link>
                 )}
               </div>
             </nav>
+            {window.innerWidth <= 768 && (
+              <div style={{ display: 'flex', justifyContent: 'center', gap: 20, paddingBottom: 12, borderTop: '1px solid #e5e7eb' }}>
+                <Link to="/" style={{ color: '#6b7280', fontSize: '14px', padding: '8px 0' }}>{t('home', lang)}</Link>
+                <Link to="/blog" style={{ color: '#6b7280', fontSize: '14px', padding: '8px 0' }}>{t('blog', lang)}</Link>
+                <Link to="/contact" style={{ color: '#6b7280', fontSize: '14px', padding: '8px 0' }}>{t('contact', lang)}</Link>
+                <Link to="/dashboard" style={{ color: '#6b7280', fontSize: '14px', padding: '8px 0' }}>{t('dashboard', lang)}</Link>
+              </div>
+            )}
           </div>
         </header>
         {greeting && (
@@ -129,20 +138,21 @@ export default function App() {
             {greeting}
           </div>
         )}
-        <main style={{ ...containerStyle, marginTop: 100 }}>
+        <main style={{ ...containerStyle, marginTop: window.innerWidth <= 768 ? 140 : 100 }}>
           <ErrorBoundary>
             <Routes>
-            <Route path="/" element={<Home lang={lang} />} />
-            <Route path="/contact" element={<Contact lang={lang} />} />
-            <Route path="/blog" element={<Blog lang={lang} />} />
-            <Route path="/blog/:id" element={<Blog lang={lang} />} />
+              <Route path="/" element={<Home lang={lang} />} />
+              <Route path="/home" element={<Home lang={lang} />} />
+              <Route path="/contact" element={<Contact lang={lang} />} />
+              <Route path="/blog" element={<BlogList lang={lang} />} />
+              <Route path="/blog/:id" element={<BlogList lang={lang} />} />
 
-            <Route path="/dashboard" element={<Dashboard user={user} lang={lang} />} />
-            <Route path="/test/:id" element={<TestInterface lang={lang} />} />
-            <Route path="/result" element={<Result lang={lang} />} />
-            <Route path="/review" element={<Review lang={lang} />} />
-            <Route path="/admin" element={<Admin lang={lang} />} />
-            <Route path="/auth" element={<Auth onLogin={u => setUser(u)} lang={lang} />} />
+              <Route path="/dashboard" element={<Dashboard user={user} lang={lang} />} />
+              <Route path="/test/:id" element={<TestInterface lang={lang} />} />
+              <Route path="/result" element={<Result lang={lang} />} />
+              <Route path="/review" element={<Review lang={lang} />} />
+              <Route path="/admin" element={<Admin lang={lang} />} />
+              <Route path="/auth" element={<Auth onLogin={u => setUser(u)} lang={lang} />} />
             </Routes>
           </ErrorBoundary>
         </main>

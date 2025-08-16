@@ -1,12 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useLocation, Link } from 'react-router-dom';
+import { t } from '../utils/translations.js';
+import { getTestByTitle } from '../config/testData.js';
 import StatsChart from './Dashboard/StatsChart';
 import '../App.css';
 
-export default function Result() {
+export default function Result({ lang = 'en' }) {
   const [results, setResults] = useState([]);
   const { state } = useLocation();
   const title = state?.title;
+  const isMobile = window.innerWidth <= 768;
+
+  const displayTitle = useMemo(() => {
+    if (!title) return t('unknownTest', lang);
+    const testData = getTestByTitle(title);
+    return testData ? (lang === 'hi' ? testData.hindiTitle : testData.title) : title;
+  }, [title, lang]);
+
+  const translations = useMemo(() => ({
+    result: lang === 'hi' ? 'परिणाम' : 'Result',
+    yourScore: t('yourScore', lang),
+    timeTaken: t('timeTaken', lang),
+    performanceGraph: lang === 'hi' ? 'प्रदर्शन ग्राफ' : 'Performance Graph',
+    reviewResponse: lang === 'hi' ? 'अपने उत्तर की समीक्षा करें' : 'Review Your Response',
+    noResult: lang === 'hi' ? 'कोई हालिया परिणाम नहीं मिला (पहले एक डेमो टेस्ट लें)।' : 'No recent result found (take a demo test first).',
+    min: lang === 'hi' ? 'मिनट' : 'min',
+    sec: lang === 'hi' ? 'सेकंड' : 'sec'
+  }), [lang]);
 
   useEffect(() => {
     const storedResults = JSON.parse(localStorage.getItem('results') || '[]');
@@ -18,25 +38,25 @@ export default function Result() {
 
   return (
     <section style={{ padding: 40, position: 'relative' }}>
-      <h2>Result — {title || 'Unknown Test'}</h2> {/* Fallback only for display */}
-      {!last && <p>No recent result found (take a demo test first).</p>}
+      <h2>{translations.result} — {displayTitle}</h2>
+      {!last && <p>{translations.noResult}</p>}
       {last && (
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        <div style={{ display: isMobile ? 'block' : 'grid', gridTemplateColumns: isMobile ? 'none' : '1fr 1fr', gap: isMobile ? 0 : 12 }}>
           <div className="card">
-            <h3>Your Score: {last.score} / {last.total}</h3>
+            <h3>{translations.yourScore}: {last.score} / {last.total}</h3>
             <p>
-              Time taken: {Math.floor(last.timeTaken / 60)}min {last.timeTaken % 60}sec
+              {translations.timeTaken}: {Math.floor(last.timeTaken / 60)} {translations.min} {last.timeTaken % 60} {translations.sec}
             </p>
           </div>
           <div className="card">
-            <h3>Performance Graph</h3>
-            <StatsChart score={last.score} total={last.total} />
+            <h3>{translations.performanceGraph}</h3>
+            <StatsChart score={last.score} total={last.total} lang={lang} />
           </div>
         </div>
       )}
       {last && (
         <Link to="/review" state={{ result: last, title }}>
-          <button className="btn btn-purple review-button">Review Your Response</button>
+          <button className="btn btn-purple review-button">{translations.reviewResponse}</button>
         </Link>
       )}
     </section>

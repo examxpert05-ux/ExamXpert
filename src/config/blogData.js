@@ -1,3 +1,11 @@
+const getFormattedDate = (lang = 'en') => {
+  const months = {
+    en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    hi: ['जनवरी', 'फरवरी', 'मार्च', 'अप्रैल', 'मई', 'जून', 'जुलाई', 'अगस्त', 'सितंबर', 'अक्टूबर', 'नवंबर', 'दिसंबर']
+  };
+  return `${months[lang][7]} 13, 2025, 02:40 PM IST`;
+};
+
 const blogData = [
   {
     id: 1,
@@ -7,7 +15,7 @@ const blogData = [
     hindiExcerpt: 'परीक्षाओं के लिए कड़ी मेहनत के बजाय स्मार्ट तैयारी की प्रभावी रणनीतियां सीखें।',
     author: 'Amitesh Gupta',
     hindiAuthor: 'अमितेश गुप्ता',
-    date: 'August 13, 2025, 02:40 PM IST',
+    getDate: getFormattedDate,
     frame: '/BlogFrames/frame1.jpg',
     image: '/BlogImages/blog1.png',
     content: `
@@ -61,7 +69,7 @@ const blogData = [
     hindiExcerpt: 'समय प्रबंधन और विभागीय संतुलन के साथ अपने स्कोर को अधिकतम बनाएं।',
     author: 'Amitesh Gupta',
     hindiAuthor: 'अमितेश गुप्ता',
-    date: 'August 13, 2025, 02:40 PM IST',
+    getDate: getFormattedDate,
     frame: '/BlogFrames/frame2.jpg',
     image: '/BlogImages/blog2.png',
     content: `
@@ -115,7 +123,7 @@ const blogData = [
     hindiExcerpt: 'सिद्ध नोट-टेकिंग तकनीकों के साथ अपनी अध्ययन सामग्री को व्यवस्थित करें।',
     author: 'Amitesh Gupta',
     hindiAuthor: 'अमितेश गुप्ता',
-    date: 'August 13, 2025, 02:40 PM IST',
+    getDate: getFormattedDate,
     frame: '/BlogFrames/frame3.jpg',
     image: '/BlogImages/blog3.png',
     content: `
@@ -169,7 +177,7 @@ const blogData = [
     hindiExcerpt: 'अपनी अध्ययन यात्रा के दौरान अपने फोकस और ऊर्जा को उच्च बनाए रखें।',
     author: 'Amitesh Gupta',
     hindiAuthor: 'अमितेश गुप्ता',
-    date: 'August 13, 2025, 02:40 PM IST',
+    getDate: getFormattedDate,
     frame: '/BlogFrames/frame4.jpg',
     image: '/BlogImages/blog4.png',
     content: `
@@ -223,7 +231,7 @@ const blogData = [
     hindiExcerpt: 'वास्तविक परीक्षा की स्थितियों का अनुकरण करने और सुधार के लिए अभ्यास परीक्षाओं का उपयोग करें।',
     author: 'Amitesh Gupta',
     hindiAuthor: 'अमितेश गुप्ता',
-    date: 'August 13, 2025, 02:40 PM IST',
+    getDate: getFormattedDate,
     frame: '/BlogFrames/frame5.jpg',
     image: '/BlogImages/blog5.png',
     content: `

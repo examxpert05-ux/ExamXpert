@@ -1,19 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { t } from '../../utils/translations.js';
+import { tests } from '../../config/testData.js';
 import RazorpayButton from '../Payment/RazorpayButton';
 import './Dashboard.css';
 import '../../App.css';
 
 export default function Dashboard({ user, lang }) {
-  const tests = [
-    { id: 't1', title: 'Bank PO Test', duration: 10, description: 'Bank Probationary Officer', price: 'xx' },
-    { id: 't2', title: 'SSC CGL Test', duration: 10, description: 'Staff Selection Commission\nCombined Graduate Level', price: 'xx' },
-    { id: 't3', title: 'UPSC Test', duration: 10, description: 'Union Public Service Commission', price: 'xx' },
-  ];
+  const isMobile = window.innerWidth <= 768;
 
   return (
-    <section style={{ padding: 40 }}>
+    <section style={{ padding: isMobile ? 20 : 40 }}>
       <h2>{t('dashboardTitle', lang)}</h2>
       {user ? (
         <div className="card">
@@ -30,16 +27,17 @@ export default function Dashboard({ user, lang }) {
             className="card"
             style={{
               display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              flexDirection: isMobile ? 'column' : 'row',
+              justifyContent: isMobile ? 'flex-start' : 'space-between',
+              alignItems: isMobile ? 'flex-start' : 'center',
             }}
           >
-            <div>
-              <h3 style={{ margin: 0 }}>{test.title}</h3>
-              <p style={{ fontWeight: 'bold', color: '#6b7280', fontSize: 16, margin: 0, whiteSpace: 'pre-line' }}>{test.description}</p>
-              <p style={{ color: '#6b7280' }}>{t('duration', lang)}: {test.duration} {t('mins', lang)}</p>
+            <div style={{ width: isMobile ? '100%' : 'auto' }}>
+              <h3 style={{ margin: 0 }}>{lang === 'hi' ? test.hindiTitle : test.title}</h3>
+              <p style={{ fontWeight: 'bold', color: '#6b7280', fontSize: 16, margin: 0, whiteSpace: 'pre-line' }}>{lang === 'hi' ? test.hindiDescription : test.description}</p>
+              <p style={{ color: '#6b7280', marginBottom: isMobile ? 12 : 0 }}>{t('duration', lang)}: {test.duration} {t('mins', lang)}</p>
             </div>
-            <div style={{ display: 'flex', gap: 8 }}>
+            <div style={{ display: 'flex', gap: 8, width: isMobile ? '100%' : 'auto' }}>
               <Link to={`/test/${test.id}`}>
                 <button className="btn">{t('startDemo', lang)}</button>
               </Link>
