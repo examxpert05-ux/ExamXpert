@@ -159,9 +159,12 @@ export default function TestInterface({ lang = 'en' }) {
           zIndex: 999,
           background: '#fff'
         }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-            <h4 style={{ margin: 0 }}>{t('navigation', lang)}</h4>
-            <label style={{ fontSize: 14 }}>
+          <div style={{ textAlign: 'center', marginBottom: 8 }}>
+            <h4 style={{ margin: 0, fontSize: 12, color: '#4f46e5' }}>{lang === 'hi' ? hindiTitle : title}</h4>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+            <h4 style={{ margin: 0, fontSize: 12 }}>{t('navigation', lang)}</h4>
+            <label style={{ fontSize: 11 }}>
               <input 
                 type="checkbox" 
                 checked={fullScreen}
@@ -169,14 +172,21 @@ export default function TestInterface({ lang = 'en' }) {
               /> {t('fullScreen', lang)}
             </label>
           </div>
-          
-          <div style={{ marginBottom: 12, textAlign: 'center' }}>
-            <span style={{ fontSize: 12 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+            <span style={{ fontSize: 11 }}>
               {fullScreen 
                 ? `${t('page', lang)} ${currentPage + 1}/${Math.ceil(questions.length / questionsPerPage)}`
                 : `${t('page', lang)} ${Math.floor(cur / questionsPerPage) + 1}/${Math.ceil(questions.length / questionsPerPage)}`
               }
             </span>
+            <Timer 
+              timeLeft={timeLeft} 
+              setTimeLeft={setTimeLeft} 
+              submitted={false} 
+              onTimeout={handleSubmit}
+              lang={lang}
+              style={{ fontSize: '11px' }}
+            />
           </div>
           
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', marginBottom: 6 }}>
@@ -205,7 +215,7 @@ export default function TestInterface({ lang = 'en' }) {
 
         </div>
         
-        <div className="card" style={{ marginTop: 135 }}>
+        <div className="card" style={{ marginTop: 160 }}>
           {!fullScreen ? (
             // Single question view
             <>
@@ -237,14 +247,14 @@ export default function TestInterface({ lang = 'en' }) {
                   <button
                     onClick={() => {
                       const newIndex = cur === questions.length - 1 ? 0 : cur + 1;
-                      navigateToQuestion(newIndex);
+                    navigateToQuestion(newIndex);
                     }}
                     className="btn btn-green"
                   >
                     {t('next', lang)}
                   </button>
                 </div>
-                <button onClick={showConfirmation} className="btn btn-red submit-button">
+                <button onClick={showConfirmation} className="btn btn-red submit-button" style={{ marginTop: '-8px' }}>
                   {t('submit', lang)}
                 </button>
               </div>
