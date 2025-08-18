@@ -4,19 +4,19 @@
  */
 
 //#region Imports
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-// Components
-import Result from './components/Result.js';
-import Review from './components/Review.js';
-import BlogList from './components/BlogList.js';
-
-import Dashboard from './components/Dashboard/Dashboard.js';
-import Home from './components/Home.js';
-import Contact from './components/Contact.js';
-import Auth from './components/Auth/Auth.js';
-import Admin from './components/Admin.js';
-import TestInterface from './components/TestInterface.js';
+import { lazy, Suspense } from 'react';
+// Lazy loaded components for performance
+const Result = lazy(() => import('./components/Result.js'));
+const Review = lazy(() => import('./components/Review.js'));
+const BlogList = lazy(() => import('./components/BlogList.js'));
+const Dashboard = lazy(() => import('./components/Dashboard/Dashboard.js'));
+const Home = lazy(() => import('./components/Home.js'));
+const Contact = lazy(() => import('./components/Contact.js'));
+const Auth = lazy(() => import('./components/Auth/Auth.js'));
+const Admin = lazy(() => import('./components/Admin.js'));
+const TestInterface = lazy(() => import('./components/TestInterface.js'));
 import ExamXpertLogo from './components/Logo.js';
 import ErrorBoundary from './components/ErrorBoundary.js';
 import { t } from './utils/translations.js';
@@ -76,6 +76,7 @@ export default function App() {
   const [lang, setLang] = useState('en');
   const [user, setUser] = useState(null);
   const [greeting, setGreeting] = useState('');
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
     if (user) {
@@ -87,6 +88,15 @@ export default function App() {
     }
   }, [user, lang]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <Router>
       <div style={{ background: '#f7fafc', minHeight: '100vh' }}>
@@ -97,7 +107,7 @@ export default function App() {
                 <ExamXpertLogo lang={lang} />
               </Link>
               <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
-                <div style={{ display: window.innerWidth > 768 ? 'flex' : 'none', gap: 12, alignItems: 'center' }}>
+                <div style={{ display: isMobile ? 'none' : 'flex', gap: 12, alignItems: 'center' }}>
                   <Link to="/" style={{ color: '#6b7280', fontSize: '14px' }}>{t('home', lang)}</Link>
                   <Link to="/blog" style={{ color: '#6b7280', fontSize: '14px' }}>{t('blog', lang)}</Link>
                   <Link to="/contact" style={{ color: '#6b7280', fontSize: '14px' }}>{t('contact', lang)}</Link>
@@ -123,7 +133,7 @@ export default function App() {
                 )}
               </div>
             </nav>
-            {window.innerWidth <= 768 && (
+            {isMobile && (
               <div style={{ display: 'flex', justifyContent: 'center', gap: 20, paddingBottom: 12, borderTop: '1px solid #e5e7eb' }}>
                 <Link to="/" style={{ color: '#6b7280', fontSize: '14px', padding: '8px 0' }}>{t('home', lang)}</Link>
                 <Link to="/blog" style={{ color: '#6b7280', fontSize: '14px', padding: '8px 0' }}>{t('blog', lang)}</Link>
@@ -138,7 +148,7 @@ export default function App() {
             {greeting}
           </div>
         )}
-        <main style={{ ...containerStyle, marginTop: window.innerWidth <= 768 ? 140 : 100 }}>
+        <main style={{ ...containerStyle, marginTop: isMobile ? 140 : 100 }}>
           <ErrorBoundary>
             <Routes>
               <Route path="/" element={<Home lang={lang} />} />
@@ -146,7 +156,6 @@ export default function App() {
               <Route path="/contact" element={<Contact lang={lang} />} />
               <Route path="/blog" element={<BlogList lang={lang} />} />
               <Route path="/blog/:id" element={<BlogList lang={lang} />} />
-
               <Route path="/dashboard" element={<Dashboard user={user} lang={lang} />} />
               <Route path="/test/:id" element={<TestInterface lang={lang} />} />
               <Route path="/result" element={<Result lang={lang} />} />
